@@ -1,0 +1,303 @@
+/*
+  styles.css – Responsive styling for the Simple To-Do App
+  ------------------------------------------------------
+  This stylesheet defines root CSS variables for colors, fonts and spacing,
+  provides a centered layout, responsive handling for the task input area,
+  and the component classes required by the JavaScript logic.
+*/
+
+/* Root variables – easy theming */
+:root {
+  --bg-color: #f5f5f5;
+  --primary-color: #2c3e50;
+  --accent-color: #3498db;
+  --text-color: #333333;
+  --muted-color: #777777;
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius: 4px;
+  --spacing: 0.5rem;
+  --transition-duration: 0.3s;
+}
+
+/* Global page layout */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: var(--spacing);
+}
+
+/* Main app container */
+.todo-app {
+  max-width: 600px;
+  width: 100%;
+  background: #ffffff;
+  padding: calc(var(--spacing) * 2);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo-app h1 {
+  text-align: center;
+  margin: 0 0 var(--spacing) 0;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+/* Task input area – flex layout that becomes vertical on small screens */
+.task-input {
+  display: flex;
+  gap: var(--spacing);
+  align-items: center;
+  margin-bottom: var(--spacing);
+}
+
+.task-input .new-task-input {
+  flex: 1;
+  padding: var(--spacing);
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+.task-input .add-task-btn {
+  padding: var(--spacing) calc(var(--spacing) * 2);
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background var(--transition-duration);
+}
+
+.task-input .add-task-btn:hover {
+  background: #2980b9; /* slightly darker */
+}
+
+/* List styling */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual task items (legacy class) */
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing);
+  border-bottom: 1px solid #eee;
+  transition: opacity var(--transition-duration), transform var(--transition-duration);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+/* Checkbox */
+.task-item .task-checkbox {
+  margin-right: var(--spacing);
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Label */
+.task-item .task-label {
+  flex: 1;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Action icons (edit / delete) */
+.task-item .task-actions {
+  display: flex;
+  gap: calc(var(--spacing) / 2);
+}
+
+.task-item .task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted-color);
+  font-size: 1rem;
+  padding: var(--spacing);
+  transition: color var(--transition-duration);
+}
+
+.task-item .task-actions button:hover {
+  color: var(--accent-color);
+}
+
+/* Completed task styling – applied via .completed on the <li> */
+.completed .task-label {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* New explicit Todo item classes – used by app.js */
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing);
+  border-bottom: 1px solid #eee;
+  transition: background var(--transition-duration), opacity var(--transition-duration), transform var(--transition-duration);
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item .todo-label {
+  flex: 1;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.todo-item .delete-btn {
+  background: none;
+  border: none;
+  color: var(--muted-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: var(--spacing);
+  transition: color var(--transition-duration);
+}
+
+.todo-item .delete-btn:hover {
+  color: #e74c3c; /* red on hover */
+}
+
+/* Completed state for .todo-item */
+.todo-item.completed .todo-label {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Filter buttons – will be added via script with the .filter-btn class */
+.filter-btn {
+  background: none;
+  border: none;
+  padding: var(--spacing);
+  margin-right: var(--spacing);
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color var(--transition-duration);
+}
+
+.filter-btn:hover {
+  color: var(--accent-color);
+}
+
+.filter-btn.active {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* Clear completed button */
+.clear-completed-btn {
+  background: none;
+  border: none;
+  padding: var(--spacing);
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 600;
+  transition: color var(--transition-duration);
+}
+
+.clear-completed-btn:hover {
+  color: var(--accent-color);
+}
+
+/* Utility class to hide elements */
+.hidden {
+  display: none !important;
+}
+
+/* Footer layout */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing);
+  flex-wrap: wrap;
+}
+
+.footer .filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Accessibility – visible focus outlines */
+input:focus,
+button:focus,
+.filter-btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .task-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-input .add-task-btn {
+    width: 100%;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer .filters {
+    margin-bottom: var(--spacing);
+  }
+
+  .todo-app h1 {
+    font-size: 1.5rem;
+  }
+
+  .task-item .task-label {
+    font-size: 0.9rem;
+  }
+
+  .todo-item .todo-label {
+    font-size: 0.9rem;
+  }
+}
+
+/* Simple fade/slide animation for task addition/removal */
+.task-item.enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.task-item.enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--transition-duration), transform var(--transition-duration);
+}
+
+.task-item.leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.task-item.leave-active {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--transition-duration), transform var(--transition-duration);
+}
